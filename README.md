@@ -1,5 +1,7 @@
-#Multi-Agent AI Investment Committee (CrewAI)
+# Multi-Agent AI Investment Committee (CrewAI)
+
 🎯 Project Goal
+
 The primary objective of this project was to build an automated, AI-driven financial analysis system using the Multi-Agent framework CrewAI.
 Unlike standard script-based automation, this project utilizes autonomous AI agents that communicate, share context, and utilize external tools to simulate a real-world investment committee. It allows for:
 
