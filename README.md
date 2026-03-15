@@ -1,76 +1,61 @@
-# Multi-Agent AI Investment Committee (CrewAI)
+# Multi-Agent Investment Committee (CrewAI)
 
-🎯 Project Goal
+![dashboard placeholder](images/home_page.png)
 
-The primary objective of this project was to build an automated, AI-driven financial analysis system using the Multi-Agent framework CrewAI.
-Unlike standard script-based automation, this project utilizes autonomous AI agents that communicate, share context, and utilize external tools to simulate a real-world investment committee. It allows for:
+## 🎯 Project Goal
+The primary objective of this project was to automate financial research and risk assessment using a multi-agent AI system. 
 
-Data-Driven Benchmarking: Fetching real-time stock market data and calculating historical volatility.
+Unlike standard chat interfaces, this application utilizes **CrewAI** to delegate specific tasks to specialized agents. It allows stakeholders to:
+- **Gather Data Efficiently**: Retrieve multi-year historical stock data and calculate market volatility automatically.
+- **Assess Macroeconomic Risks**: Scrape the latest internet news for sectoral risks rather than relying solely on numbers.
+- **Synthesize Information**: Let a "Chief Investment Officer" agent analyze both the hard data and the risk reports to provide a final, actionable investment recommendation (Buy/Hold/Sell).
 
-Macroeconomic Risk Assessment: Dynamically surfing the web for the latest news and potential regulatory or market risks.
+## 💻 Technologies & Tools
+- **CrewAI** – Main framework used to orchestrate AI agents and manage task delegation.
+- **Streamlit** – Used for building a clean, interactive web frontend for the system.
+- **yfinance** – Python library used as a Custom Tool by the Data Fetcher agent to scrape Yahoo Finance.
+- **DuckDuckGo Search** – Free web search API used by the Risk Manager agent to look for recent news.
+- **Google Gemini (flash)** – The underlying native LLM powering the agents' reasoning and decision-making capabilities.
 
-Automated Synthesis: Synthesizing hard numerical data with qualitative risk reports to generate a final, actionable investment recommendation (BUY / HOLD / SELL) formatted in Markdown.
+## 📊 Key Features & Architecture
 
-💻 Technologies & Tools
-Python – The core programming language used for the backend logic.
 
-CrewAI & LangChain – Orchestration frameworks used to define agent roles, goals, and sequential task execution.
+- **Agent 1 (Junior Analyst)** 
+  - **The Insight**: Equipped with a custom `fetch_stock_data` tool, this agent retrieves historical close prices and calculates the annualized volatility. 
+  - **Business Value**: Automates the initial quantitative research phase, saving human analysts hours of manual data collection.
 
-Google Gemini 2.5 Flash API – The underlying Large Language Model (LLM) powering the agents' reasoning and decision-making capabilities.
+- **Agent 2 (Risk Manager)** 
+  - **The Insight**: Uses internet search tools to find "threats" related to the requested companies or sectors. 
+  - **Business Value**: Provides necessary qualitative context. Even if a stock's volatility is low, this agent might flag a pending lawsuit or a macroeconomic shift that changes the outlook.
 
-yfinance – A custom Python tool built for the Data Analyst agent to fetch historical market data and calculate 3-year volatility.
+- **Agent 3 (Chief Investment Officer)** 
+  - **The Insight**: Reviews the outputs of the previous two agents in sequence. 
+  - **Business Value**: Delivers the final investment verdict in Markdown, allowing users to make data-driven decisions backed by both numbers and recent news.
 
-DuckDuckGo Search – Integrated web search tool for the Risk Manager agent to perform real-time sentiment and news analysis.
-
-python-dotenv – Used for secure environment variable management (protecting API keys).
-
-📊 Key Features & Agent Architecture
-1. Data Fetcher (Junior Analyst)
-The Insight: I created a custom @tool that takes a stock ticker (e.g., AAPL, MSFT), connects to Yahoo Finance, retrieves 3 years of historical data, and mathematically calculates the annualized volatility.
-
-Business Value: Ensures the decision-making process is grounded in hard, factual numbers rather than LLM hallucinations.
-
-2. Risk Manager
-The Insight: Equipped with web-search capabilities, this agent acts as a pessimist, specifically instructed to look for industry risks, lawsuits, or macroeconomic headwinds.
-
-Business Value: Provides a qualitative counterweight to the raw data, ensuring "blind spots" are covered before any money is invested.
-
-3. Chief Investment Officer (CIO)
-The Insight: The final agent synthesizes the numerical report and the risk analysis to output a final Markdown recommendation.
-
-Engineering Value: The system handles API Rate Limits (Google's 429 Resource Exhausted) by utilizing CrewAI's built-in max_rpm (Requests Per Minute) throttling mechanism, ensuring stable and continuous execution in a Free-Tier environment.
-
-📂 Project Structure
+## 📂 Project Structure
 The repository is organized as follows:
+- `images/` - Folder containing screenshots used in this documentation (e.g., application UI, architecture).
+- `app.py` - The Streamlit frontend application.
+- `main.py` - Core logic containing the CrewAI definitions (Agents, Tasks, Tools).
+- `requirements.txt` - File containing all necessary Python dependencies.
+- `README.md` - Project documentation (This file).
 
-main.py - The core application script containing agent definitions, custom tools, and the task pipeline.
+## 🚀 How to Run
+1. Clone this repository.
+2. Create a virtual environment and install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Create a `.env` file in the root directory and add your Google API key:
+   ```env
+   GOOGLE_API_KEY=your_api_key_here
+   ```
+4. Run the Streamlit application:
+   ```bash
+   streamlit run app.py
+   ```
+5. Open your browser at `http://localhost:8501` to view the interactive application.
 
-requirements.txt - List of necessary Python dependencies (specifically curated to avoid Pydantic/LangChain version conflicts).
-
-.env.example - A template file showing how to structure the hidden environment variables.
-
-README.md - Project documentation (This file).
-
-🚀 How to Run
-Clone this repository to your local machine.
-
-It is highly recommended to use a virtual environment (Python 3.11 or 3.12) to avoid dependency conflicts:
-
-python -m venv venv
-source venv/bin/activate  # On Windows use: .\venv\Scripts\activate
-
-Install the required packages:
-
-pip install -r requirements.txt
-
-Create a .env file in the root directory and add your Google AI Studio API key:
-
-GOOGLE_API_KEY="your_api_key_here"
-
-Run the investment committee simulation:
-
-python main.py
-
-👤 Author
-Piotr Pszenny
-Aspiring Risk & Data Analyst
+## 👤 Author
+**Piotr Pszenny**  
+*Aspiring Risk & Data Analyst*
